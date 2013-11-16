@@ -14,8 +14,7 @@ $(document).ready(function(){
             return false;
         }
         meeting.save({date:meetingDate}).then(function(meeting){
-            _meetings.push(meeting);
-            showMeetings();
+            loadMeetings();
             $("#name").val("");
             $("#date").val("");
         });
@@ -39,6 +38,7 @@ $(document).ready(function(){
     var loadMeetings = function(){
         var query = new Parse.Query(Meeting);
         query.limit(10);
+        query.ascending("date");
         query.find().then(function(results){
             _meetings = results;
             showMeetings();
